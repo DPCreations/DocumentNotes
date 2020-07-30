@@ -1,16 +1,29 @@
 # Document Notes
 
-TestaViva needs a system to record notes for a document. The Document is discussed over a phone by a lawyer, and during that conversation notes will be taken for a given paragraph. The lawyer may then use these notes to remind them what actions he has agreed to, ex. a correction or amendment.
+TestaViva needs a system to record notes for a document. The Document is discussed over a phone by a lawyer, and during 
+that conversation notes will be taken for a given paragraph. The lawyer may then use these notes to remind them what 
+actions he has agreed to, ex. a correction or amendment.
 
-The frontend is already in place, so an API is required to create, read, update but not delete.
+#### Backend
+In the backend it should be possible to create, read, update but not delete notes.
 
-We have provided a skeleton installation of Symfony.
+#### Frontend
+A frontend in whatever language you prefer ex. Vue, React, Angular... should provide an interface to show/select/edit 
+the legal documents. A method that allows the lawyer to add a comment to a paragraph (footnote or side margin or 
+somewhere else ?). 
+With respect to editing the document, then something in the direction of a wysiwyg for some very basic editing would be 
+desirable.
+We would like to see your frontend coding skills, but using a package to solve a part of the assignment is fully 
+acceptable, ex. a wysiwyg package. 
+
+We have provided a 1) skeleton installation of Symfony, and 2) a few legal (lorem ipsum) documents, presently in html, 
+but we would like to see that moved to a database.
 
 * In addition to above we would like to see some sensible documentation.
 * Some verification of the input.
-* Reponses should be json, with the appropriate headers.
+* Responses should be json, with the appropriate headers.
 * Some (unit) testing.
-* Otherwise the code should be clean.
+* The code should be clean.
 
 Please write your code, and push it back up to this repository.
 
