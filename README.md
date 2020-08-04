@@ -11,13 +11,16 @@ In the backend it should be possible to create, read, update but not delete note
 A frontend in whatever language you prefer ex. Vue, React, Angular... should provide an interface to show/select/edit 
 the legal documents. A method that allows the lawyer to add a comment to a paragraph (footnote or side margin or 
 somewhere else ?). 
+The frontend should be able to mirror the abilities of the API, i.e. create, read, update, but also the ability to add 
+notes to the documents.
 With respect to editing the document, then something in the direction of a wysiwyg for some very basic editing would be 
 desirable.
 We would like to see your frontend coding skills, but using a package to solve a part of the assignment is fully 
 acceptable, ex. a wysiwyg package. 
 
-We have provided a 1) skeleton installation of Symfony, and 2) a few legal (lorem ipsum) documents, presently in html, 
-but we would like to see that moved to a database.
+We have provided a 
+1) Skeleton installation of Symfony, with the minimum required for routing
+2) A few legal (lorem ipsum) documents, presently in html (twig), but we would like to see that moved to a database.
 
 * In addition to above we would like to see some sensible documentation.
 * Some verification of the input.
@@ -25,7 +28,6 @@ but we would like to see that moved to a database.
 * Some (integration testing or unit) testing.
 * Use whichever database technology you are comfortable with.
 * The code should be clean.
-
 
 Please fork the repository, write your code, and push it back up to this repository as a feature branch, using your own name as branch name ex. feature/JensJensen, and make pull request.
 
