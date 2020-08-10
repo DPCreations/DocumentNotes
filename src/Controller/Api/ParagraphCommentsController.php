@@ -62,18 +62,25 @@ class ParagraphCommentsController extends AbstractController
     }
 
     /**
-     * @Route("/paragraph/comments/{id}update", name="paragraph.comments.update", methods={"POST"}))
+     * @Route("/paragraph/comments/{id}/update", name="paragraph.comments.update", methods={"POST"}))
      */
     public function update($id)
     {
         $request = new Request();
+        $content = json_decode($request->getContent())->content;
 
         $comment = $this->getDoctrine()
             ->getRepository(ParagraphComment::class)
             ->find($id);
 
-        $content = $request->query->get('content');
-
         $comment->setContent($content);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        return new JsonResponse([
+            'status' => 'success'
+        ]);
     }
 }

@@ -6,9 +6,11 @@ import $ from 'jquery';
 import bootstrap from 'bootstrap';
 
 //Import components
-import Paragraph from "./Components/Paragraph.vue";
+import Paragraph from "./Components/Paragraph";
+
+//Components
+Vue.component('paragraph', Paragraph);
 
 new Vue({
     el: '#app',
-    components: {Paragraph}
 });

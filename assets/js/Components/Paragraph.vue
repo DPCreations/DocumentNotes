@@ -2,10 +2,15 @@
   <div class="card-text paragraph">
     <!-- Modal -->
     <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog" role="document" v-if="comment">
         <div class="modal-content">
           <div class="modal-body">
-            <p v-text="comment"/>
+            <textarea class="form-control" v-model="comment.content" />
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" @click="updateComment" data-dismiss="modal">Gem note</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
           </div>
         </div>
       </div>
@@ -15,7 +20,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
-            <textarea class="form-control" v-model="newComment"></textarea>
+            <textarea class="form-control" v-model="newComment" />
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-primary" @click="storeComment" data-dismiss="modal">Gem note</button>
@@ -26,7 +31,7 @@
     </div>
 
 
-    <div class="comments" v-if="comments.length > 0">
+    <div class="comments">
       <button  v-for="comment in comments"  class="btn ml-1" @click="viewComment(comment)" data-toggle="modal" data-target="#commentModal"><i class="fa fa-comment-o"></i></button>
       <button class="btn ml-1" data-toggle="modal" data-target="#newCommentModal"><i class="fa fa-plus"></i></button>
     </div>
@@ -41,8 +46,6 @@
   import bootstrap from 'bootstrap';
 
   export default {
-    name: "Paragraph",
-
     mounted() {
       this.getComments();
     },
@@ -75,7 +78,7 @@
       },
 
       viewComment(comment) {
-        this.comment = comment.content;
+        this.comment = comment;
       },
 
       storeComment() {
@@ -83,12 +86,17 @@
             .post(`/paragraph/${this.id}/comments/store`, {
               'content': this.newComment
             })
-            .then(response => (this.comments = response.data.comments))
+            .then(() => (this.getComments()))
             .then(this.newComment = null)
       },
 
       updateComment() {
-
+        axios
+            .post(`/paragraph/comments/${this.comment.id}/update`, {
+              'content': this.comment.content
+            })
+            .then(() => (this.getComments()))
+            .then(this.comment = null)
       }
     }
 
