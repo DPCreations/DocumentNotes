@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\MakerBundle\Validator;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use App\Entity\DocumentParagraph;
@@ -47,17 +48,21 @@ class ParagraphCommentsController extends AbstractController
             ->getRepository(DocumentParagraph::class)
             ->find($paragraphId);
 
-        $comment = new ParagraphComment();
+        if ($content && $paragraph) {
+            $comment = new ParagraphComment();
 
-        $comment->setParagraph($paragraph);
-        $comment->setContent($content);
+            $comment->setParagraph($paragraph);
+            $comment->setContent($content);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($comment);
-        $em->flush();
+            $this->storeInDb($comment);
+
+            return new JsonResponse([
+                'status' => 'success'
+            ]);
+        }
 
         return new JsonResponse([
-            'status' => 'success'
+            'status' => 'error'
         ]);
     }
 
@@ -73,14 +78,25 @@ class ParagraphCommentsController extends AbstractController
             ->getRepository(ParagraphComment::class)
             ->find($id);
 
-        $comment->setContent($content);
+        if($content && $comment) {
+            $comment->setContent($content);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($comment);
-        $em->flush();
+            $this->storeInDb($comment);
+
+            return new JsonResponse([
+                'status' => 'success'
+            ]);
+        }
 
         return new JsonResponse([
-            'status' => 'success'
+            'status' => 'error'
         ]);
+    }
+
+    private function storeInDb($entity)
+    {
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($entity);
+        $manager->flush();
     }
 }

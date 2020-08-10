@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ParagraphCommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=ParagraphCommentRepository::class)
@@ -25,7 +26,10 @@ class ParagraphComment
 
     /**
      * @ORM\Column(type="text")
+     *
+     * @Assert\NotBlank
      */
+
     private $content;
 
     public function getId(): ?int
