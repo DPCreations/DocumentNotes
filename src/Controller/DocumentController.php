@@ -18,8 +18,6 @@ class DocumentController extends AbstractController
             ->getRepository(Document::class)
             ->findAll();
 
-
-
         return $this->render('documents.html.twig', [
             'documents' => $documents,
         ]);

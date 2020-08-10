@@ -1,3 +1,6 @@
+#Application
 documents:
     path: /
     controller: App\Controller\DocumentController::index
+
+#API
