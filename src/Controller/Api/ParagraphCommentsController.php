@@ -22,17 +22,17 @@ class ParagraphCommentsController extends AbstractController
             ->find($paragraphId);
 
 
-        $data = array();
+        $comments = array();
 
         foreach($paragraph->getParagraphComments() as $comment) {
-            $data[] = array(
+            $comments[] = array(
                 'id' => $comment->getId(),
                 'content' => $comment->getContent()
             );
         }
         
         return new JsonResponse([
-            'comments' => $data,
+            'comments' => $comments,
         ]);
     }
 

@@ -1,7 +1,7 @@
 <template>
   <div class="card-text paragraph">
     <!-- Modal -->
-    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" :id="'commentModal' + id" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document" v-if="comment">
         <div class="modal-content">
           <div class="modal-body">
@@ -9,21 +9,21 @@
           </div>
 
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="updateComment" data-dismiss="modal">Gem note</button>
+            <button type="button" class="btn btn-success" @click="updateComment" data-dismiss="modal">Save note</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="modal fade" id="newCommentModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" :id="'newCommentModal' + id" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-body">
             <textarea class="form-control" v-model="newComment" />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" @click="storeComment" data-dismiss="modal">Gem note</button>
+            <button type="button" class="btn btn-success" @click="storeComment" data-dismiss="modal">Create note</button>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">X</button>
           </div>
         </div>
@@ -32,8 +32,8 @@
 
 
     <div class="comments">
-      <button  v-for="comment in comments"  class="btn ml-1" @click="viewComment(comment)" data-toggle="modal" data-target="#commentModal"><i class="fa fa-comment-o"></i></button>
-      <button class="btn ml-1" data-toggle="modal" data-target="#newCommentModal"><i class="fa fa-plus"></i></button>
+      <button  v-for="comment in comments"  class="btn ml-1" @click="viewComment(comment)" data-toggle="modal" :data-target="'#commentModal' + id"><i class="fa fa-comment-o"></i></button>
+      <button class="btn ml-1" data-toggle="modal" :data-target="'#newCommentModal' + id"><i class="fa fa-plus"></i></button>
     </div>
 
     <p v-text="content"/>
@@ -41,9 +41,7 @@
 </template>
 
 <script>
-  import $ from 'jquery';
   import axios from 'axios';
-  import bootstrap from 'bootstrap';
 
   export default {
     mounted() {
@@ -92,7 +90,7 @@
 
       updateComment() {
         axios
-            .post(`/paragraph/comments/${this.comment.id}/update`, {
+            .post(`/paragraph/comments/${this.comment.id}/updatew`, {
               'content': this.comment.content
             })
             .then(() => (this.getComments()))
